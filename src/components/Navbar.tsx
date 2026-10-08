@@ -1,0 +1,195 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { PhoenixWordmark } from './PhoenixLogo';
+import { Search, X, Bell } from 'lucide-react';
+
+interface NavbarProps {
+  searchQuery: string;
+  onSearchChange: (q: string) => void;
+  myListCount: number;
+  onOpenMyList: () => void;
+  registrationLink: string;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({
+  searchQuery,
+  onSearchChange,
+  myListCount,
+  onOpenMyList,
+  registrationLink,
+}) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isNotifOpen, setIsNotifOpen] = useState(false);
+
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const notifRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 25);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (notifRef.current && !notifRef.current.contains(e.target as Node)) {
+        setIsNotifOpen(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
+  const handleToggleSearch = () => {
+    setIsSearchOpen((prev) => {
+      const next = !prev;
+      if (next) {
+        setTimeout(() => searchInputRef.current?.focus(), 50);
+      } else {
+        onSearchChange('');
+      }
+      return next;
+    });
+  };
+
+  return (
+    <header
+      className={`fixed top-0 left-0 right-0 z-40 h-[68px] transition-all duration-300 ${isScrolled
+        ? 'bg-[#141414]/95 shadow-xl shadow-black/80 border-b border-white/10 backdrop-blur-md'
+        : 'bg-gradient-to-b from-black/95 via-black/60 to-transparent'
+        }`}
+    >
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-8 h-full flex items-center justify-between gap-6">
+        {/* Left: Brand Logo + Nav Links */}
+        <div className="flex items-center gap-7 lg:gap-9">
+          <a
+            href="#hero"
+            className="flex items-center gap-2.5 focus-visible:outline-none group select-none"
+            aria-label="Orkestrim Home"
+          >
+            <img src="/assets/logo-mark.svg" alt="Orkestrim Logo" className="group-hover:scale-105 transition-transform w-[34px] h-[34px] object-contain drop-shadow-[0_0_12px_rgba(229,9,20,0.5)]" />
+            <PhoenixWordmark />
+          </a>
+
+          {/* Desktop Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-6 text-sm font-semibold text-neutral-300" aria-label="Main Navigation">
+            <a href="#hero" className="text-white hover:text-white transition-colors">
+              Home
+            </a>
+            <a href="#top5" className="hover:text-white transition-colors">
+              Top 5
+            </a>
+            <a href="#arenas" className="hover:text-white transition-colors">
+              Arenas
+            </a>
+            <a href="#schedule" className="hover:text-white transition-colors">
+              Episodes (Schedule)
+            </a>
+            <button
+              type="button"
+              onClick={onOpenMyList}
+              className="flex items-center gap-1.5 hover:text-white transition-colors text-left"
+            >
+              <span>My List</span>
+              <span className="bg-[#E50914] text-white text-[11px] font-bold px-1.5 py-0.2 rounded-full min-w-[18px] text-center leading-tight">
+                {myListCount}
+              </span>
+            </button>
+            <a href="#venue" className="hover:text-white transition-colors">
+              Food & Venue
+            </a>
+          </nav>
+        </div>
+
+        {/* Right: Search, Notification Bell, Register Now Button */}
+        <div className="flex items-center gap-4 sm:gap-5">
+          {/* Search Toggle */}
+          <div
+            className={`flex items-center rounded transition-all duration-200 ${isSearchOpen
+              ? 'bg-black/80 border border-white/30 px-2.5 py-1.5'
+              : 'bg-transparent border border-transparent'
+              }`}
+          >
+            <button
+              type="button"
+              onClick={handleToggleSearch}
+              aria-label="Search events"
+              title="Search arenas"
+              className="text-white hover:text-neutral-300 transition-colors p-1"
+            >
+              <Search className="w-5 h-5" />
+            </button>
+            <input
+              ref={searchInputRef}
+              type="text"
+              value={searchQuery}
+              onChange={(e) => onSearchChange(e.target.value)}
+              placeholder="Titles, tags, genres..."
+              className={`bg-transparent text-xs sm:text-sm text-white focus:outline-none transition-all duration-300 ${isSearchOpen ? 'w-36 sm:w-48 ml-2 opacity-100' : 'w-0 opacity-0 pointer-events-none'
+                }`}
+            />
+            {isSearchOpen && searchQuery && (
+              <button
+                type="button"
+                onClick={() => onSearchChange('')}
+                className="text-neutral-400 hover:text-white p-0.5 text-xs"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
+
+          {/* Notification Bell */}
+          <div ref={notifRef} className="relative">
+            <button
+              type="button"
+              onClick={() => setIsNotifOpen(!isNotifOpen)}
+              aria-label="Symposium notifications"
+              title="Symposium announcements"
+              className="relative p-1 text-white hover:text-neutral-300 transition-colors"
+            >
+              <Bell className="w-5 h-5" />
+              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-[#E50914]" />
+            </button>
+
+            {isNotifOpen && (
+              <div className="absolute top-full right-0 mt-3 w-80 bg-[#181818] border border-white/15 rounded-lg shadow-2xl p-4 space-y-3 z-50 animate-in fade-in zoom-in-95 duration-150">
+                <div className="flex items-center justify-between border-b border-white/10 pb-2 text-xs font-bold text-neutral-400 uppercase">
+                  <span>Announcements</span>
+                  <span className="text-[#E50914]">2 New</span>
+                </div>
+                <div className="space-y-2.5 text-xs text-neutral-300">
+                  <div className="p-2.5 rounded bg-black/40 border border-white/5 space-y-1">
+                    <span className="text-[10px] font-black uppercase text-emerald-400 bg-emerald-950/60 px-1.5 py-0.5 rounded">
+                      Registration Live
+                    </span>
+                    <p className="leading-snug">Registration for Orkestrim 2K26 is officially open across all 5 arenas!</p>
+                  </div>
+                  <div className="p-2.5 rounded bg-black/40 border border-white/5 space-y-1">
+                    <span className="text-[10px] font-black uppercase text-amber-400 bg-amber-950/60 px-1.5 py-0.5 rounded">
+                      Schedule Reminder
+                    </span>
+                    <p className="leading-snug">Breakfast check-in begins at 08:30 AM on 24 Oct 2026. Refreshments provided.</p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Solid Red Primary Registration Button */}
+          <a
+            href={registrationLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center px-5 py-2 rounded bg-[#E50914] text-white font-bold text-sm tracking-wide hover:bg-[#b80710] transition-colors shadow-lg active:scale-95 whitespace-nowrap"
+          >
+            Register Now
+          </a>
+        </div>
+      </div>
+    </header>
+  );
+};

@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-bebas: "Bebas Neue", sans-serif;
+    --font-display: "Big Shoulders Display", sans-serif;
+    --font-ui: "Inter", sans-serif;
+  }
+
+  body {
+    font-family: var(--font-ui);
+    background-color: #0e0e0e;
+    color: #ffffff;
+  }
+}
+
+.font-bebas {
+  font-family: "Bebas Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.font-display {
+  font-family: "Big Shoulders Display", "Bebas Neue", sans-serif;
+}
+
+/* Custom scrollbar for carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Netflix stroke text for Top 5 rankings */
+.stroke-numeral {
+  -webkit-text-stroke: 4px #595959;
+  color: #141414;
+  transition: all 0.25s ease;
+}
+
+.group:hover .stroke-numeral {
+  -webkit-text-stroke: 4px #E50914;
+  filter: drop-shadow(0 0 15px rgba(229, 9, 20, 0.6));
+}
+
+/* Sound wave animation */
+@keyframes audioWaveBounce {
+  0% { height: 4px; }
+  100% { height: 14px; }
+}
+
+.wave-1 {
+  animation: audioWaveBounce 0.4s ease infinite alternate;
+}
+.wave-2 {
+  animation: audioWaveBounce 0.4s 0.15s ease infinite alternate;
+}
+.wave-3 {
+  animation: audioWaveBounce 0.4s 0.3s ease infinite alternate;
+}
+
+/* Floating shape animations */
+@keyframes floatGentle {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+@keyframes slowRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-float-slow {
+  animation: floatGentle 4s ease-in-out infinite alternate;
+}
+
+.animate-rotate-slow {
+  animation: slowRotate 12s linear infinite;
+}
+
+/* Horizontal Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+.group:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+.phoenix-trace-path {
+  stroke-dasharray: 1500;
+  stroke-dashoffset: 1500;
+  animation: phoenix-trace 2s ease forwards, phoenix-glow 1s 2s ease forwards;
+}
+
+@keyframes phoenix-trace {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes phoenix-glow {
+  to { fill: currentColor; stroke: transparent; filter: drop-shadow(0 0 15px rgba(229,9,20,0.8)); }
+}
+
+@keyframes netflixZoom {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(18); opacity: 0; filter: drop-shadow(0 0 50px rgba(229,9,20,1)); }
+}
+
+.animate-netflixZoom {
+  animation: netflixZoom 0.6s cubic-bezier(0.8, 0, 0.2, 1) forwards;
+}
+
+@keyframes stripeStretch {
+  0% { transform: scaleY(0.1) scaleX(0.8); filter: blur(1px); }
+  100% { transform: scaleY(4) scaleX(2.5); filter: blur(3px); }
+}
+
+.animate-stripeStretch {
+  animation: stripeStretch 0.6s cubic-bezier(0.8, 0, 0.2, 1) forwards;
+}
