@@ -67,7 +67,7 @@ export const CalendarModal: React.FC<CalendarModalProps> = ({
         </button>
 
         <span className="text-xs font-black tracking-widest text-[#E50914] uppercase">
-          Premiere Airdate // 24 Oct 2026
+          Premiere Airdate // 31 Oct 2026
         </span>
         <h2 id="calendar-modal-title" className="font-bebas text-3xl text-white tracking-wide mt-1 mb-2">
           Sync to Your Calendar

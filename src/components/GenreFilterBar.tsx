@@ -8,10 +8,8 @@ interface GenreFilterBarProps {
 
 const CATEGORIES: { id: CategoryFilter; label: string }[] = [
   { id: 'all', label: 'All Arenas' },
-  { id: 'tech', label: '💻 Coding & Tech' },
-  { id: 'presentation', label: '📄 Research & Demo' },
-  { id: 'strategy', label: '🧠 Quiz & Logic' },
-  { id: 'nontech', label: '🎯 Ads & Treasure Hunt' },
+  { id: 'tech', label: '💻 Technical Events' },
+  { id: 'nontech', label: '🎯 Non-Technical Events' },
 ];
 
 export const GenreFilterBar: React.FC<GenreFilterBarProps> = ({

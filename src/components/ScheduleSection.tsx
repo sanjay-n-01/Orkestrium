@@ -33,7 +33,7 @@ export const ScheduleSection: React.FC<ScheduleSectionProps> = ({ site, onShowTo
               Episodes // Day Schedule
             </h2>
             <p className="text-xs sm:text-sm text-neutral-400">
-              Season 2026: 24 October 2026 · Synchronized across Campus Arenas
+              Season 2026: 31 October 2026 · Synchronized across Campus Arenas
             </p>
           </div>
 

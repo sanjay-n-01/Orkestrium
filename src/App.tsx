@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { SITE_CONFIG, OFFICIAL_EVENTS } from './data/symposiumData';
-import { CategoryFilter, AttendeePersona, SymposiumEvent } from './types/symposium';
+import { CategoryFilter, SymposiumEvent } from './types/symposium';
 import { Navbar } from './components/Navbar';
 import { BillboardHero } from './components/BillboardHero';
 import { GenreFilterBar } from './components/GenreFilterBar';
@@ -13,7 +13,7 @@ import { TopRankedRow } from './components/TopRankedRow';
 import { ArenasRow } from './components/ArenasRow';
 import { ScheduleSection } from './components/ScheduleSection';
 import { MyListSection } from './components/MyListSection';
-import { BehindTheScenesSection } from './components/BehindTheScenesSection';
+import { VenueSection } from './components/VenueSection';
 import { CrewSection } from './components/CrewSection';
 import { FinaleCta } from './components/FinaleCta';
 import { Footer } from './components/Footer';
@@ -22,13 +22,12 @@ import { ArenaDetailModal } from './components/ArenaDetailModal';
 import { CalendarModal } from './components/CalendarModal';
 import { Toast } from './components/Toast';
 import { Preloader } from './components/Preloader';
+import Faqs02 from './components/ui/faqs-02';
+import { ReactLenis } from 'lenis/react';
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>('all');
-  const [currentPersona, setCurrentPersona] = useState<AttendeePersona>(() => {
-    return (localStorage.getItem('orkestrim_persona') as AttendeePersona) || 'hacker';
-  });
   const [bookmarkedIds, setBookmarkedIds] = useState<string[]>(() => {
     try {
       return JSON.parse(localStorage.getItem('orkestrim_my_list') || '[]');
@@ -40,11 +39,6 @@ export default function App() {
   const [selectedEvent, setSelectedEvent] = useState<SymposiumEvent | null>(null);
   const [isCalModalOpen, setIsCalModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-
-  // Sync persona to localStorage
-  useEffect(() => {
-    localStorage.setItem('orkestrim_persona', currentPersona);
-  }, [currentPersona]);
 
   // Sync bookmarks to localStorage
   useEffect(() => {
@@ -87,8 +81,9 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0e0e0e] text-white flex flex-col selection:bg-[#E50914] selection:text-white pb-14 md:pb-0 overflow-x-hidden">
-      <Preloader />
+    <ReactLenis root>
+      <div className="min-h-screen bg-[#0e0e0e] text-white flex flex-col selection:bg-[#E50914] selection:text-white pb-14 md:pb-0 overflow-clip">
+        <Preloader />
       {/* Top Navigation */}
       <Navbar
         searchQuery={searchQuery}
@@ -108,15 +103,15 @@ export default function App() {
         />
 
         {/* Sticky Category Filter Bar */}
-        <GenreFilterBar
-          activeCategory={activeCategory}
-          onSelectCategory={setActiveCategory}
-        />
+        <div className="relative z-10 bg-[#0e0e0e] rounded-t-3xl sm:rounded-t-[3rem] pt-6 mt-[-100vh]">
+          <GenreFilterBar
+            activeCategory={activeCategory}
+            onSelectCategory={setActiveCategory}
+          />
 
         {/* Row 1: The Iconic Top 5 Ranked Arenas */}
         <TopRankedRow
           events={OFFICIAL_EVENTS}
-          currentPersona={currentPersona}
           bookmarkedIds={bookmarkedIds}
           onToggleBookmark={handleToggleBookmark}
           onSelectEvent={setSelectedEvent}
@@ -128,7 +123,6 @@ export default function App() {
           events={OFFICIAL_EVENTS}
           activeCategory={activeCategory}
           searchQuery={searchQuery}
-          currentPersona={currentPersona}
           bookmarkedIds={bookmarkedIds}
           onToggleBookmark={handleToggleBookmark}
           onSelectEvent={setSelectedEvent}
@@ -150,14 +144,18 @@ export default function App() {
           onShowToast={showToast}
         />
 
-        {/* Row 5: Behind the Scenes (Food & Venue Launchpad) */}
-        <BehindTheScenesSection site={SITE_CONFIG} />
+        {/* Row 5: Venue & Map (Now Showing At) */}
+        <VenueSection site={SITE_CONFIG} />
 
-        {/* Row 6: Cast & Crew (Student Coordinators) */}
+        {/* Row 6: Cast & Crew (Staff Coordinators & Office Bearers) */}
         <CrewSection site={SITE_CONFIG} />
+
+        {/* FAQs */}
+        <Faqs02 />
 
         {/* Grand Finale CTA */}
         <FinaleCta registrationLink={SITE_CONFIG.registrationLink} />
+        </div>
       </main>
 
       {/* Netflix Footer */}
@@ -188,6 +186,7 @@ export default function App() {
 
       {/* Dynamic Toast Popover */}
       <Toast message={toastMessage} />
-    </div>
+      </div>
+    </ReactLenis>
   );
 }

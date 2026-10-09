@@ -50,9 +50,13 @@ export const ArenaDetailModal: React.FC<ArenaDetailModalProps> = ({
       `--- OFFICIAL RULES & GUIDELINES ---`,
       ...event.rules.map((r, i) => `${i + 1}. ${r}`),
       ``,
-      `--- STUDENT COORDINATOR ---`,
+      `--- STUDENT COORDINATOR(S) ---`,
       `Name: ${event.coordinator.name}`,
       `Contact Phone: ${event.coordinator.phone}`,
+      ...(event.coordinator.name2 ? [
+        `Co-Coordinator: ${event.coordinator.name2}`,
+        `Contact Phone: ${event.coordinator.phone2 || 'N/A'}`
+      ] : []),
       ``,
       `Registration Link: ${event.formLink || "Available at registration desk"}`,
       `===========================================================`
@@ -75,6 +79,7 @@ export const ArenaDetailModal: React.FC<ArenaDetailModalProps> = ({
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-arena-title"
+      data-lenis-prevent="true"
       className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 bg-black/85 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
@@ -180,7 +185,7 @@ export const ArenaDetailModal: React.FC<ArenaDetailModalProps> = ({
         </div>
 
         {/* Modal Body / Tab Content */}
-        <div className="p-6 overflow-y-auto flex-1 space-y-6">
+        <div className="p-6 overflow-y-auto flex-1 space-y-6" data-lenis-prevent="true">
           {activeTab === 'overview' && (
             <div className="space-y-6 animate-in fade-in duration-150">
               <div>
@@ -265,7 +270,7 @@ export const ArenaDetailModal: React.FC<ArenaDetailModalProps> = ({
                 </div>
                 <div className="flex-1">
                   <span className="text-xs font-black tracking-wider text-[#E50914] uppercase">
-                    Arena Coordinator
+                    {event.coordinator.name2 ? "Lead Coordinator" : "Arena Coordinator"}
                   </span>
                   <h4 className="text-xl font-bold text-white mt-0.5">{event.coordinator.name}</h4>
                   <p className="text-xs text-neutral-400 mb-3">
@@ -284,6 +289,34 @@ export const ArenaDetailModal: React.FC<ArenaDetailModalProps> = ({
                   )}
                 </div>
               </div>
+
+              {event.coordinator.name2 && (
+                <div className="flex items-center gap-4 bg-black/40 border border-white/10 rounded-xl p-5">
+                  <div className="w-14 h-14 rounded-full bg-neutral-800 border border-white/15 flex items-center justify-center text-2xl shrink-0">
+                    <User className="w-7 h-7 text-neutral-300" />
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-xs font-black tracking-wider text-neutral-400 uppercase">
+                      Co-Coordinator
+                    </span>
+                    <h4 className="text-xl font-bold text-white mt-0.5">{event.coordinator.name2}</h4>
+                    <p className="text-xs text-neutral-400 mb-3">
+                      Event co-coordinator assisting with participant coordination and support.
+                    </p>
+                    {event.coordinator.phone2 ? (
+                      <a
+                        href={`tel:${event.coordinator.phone2}`}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm transition-colors border border-white/15"
+                      >
+                        <Phone className="w-3.5 h-3.5" />
+                        <span>Call {event.coordinator.phone2}</span>
+                      </a>
+                    ) : (
+                      <span className="text-xs text-neutral-500">Phone: TBD at Help Desk</span>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>

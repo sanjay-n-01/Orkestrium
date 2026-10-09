@@ -23,14 +23,14 @@ export const MyListSection: React.FC<MyListSectionProps> = ({
   const handleShareLineup = () => {
     const names = bookmarkedEvents.map((b) => b.name).join(', ');
     const shareUrl = window.location.href.split('#')[0];
-    const text = `Hey team! I am participating in ORKESTRIM 2K26 on 24 Oct 2026. Here is my target lineup: ${names}. Join my squad! Link: ${shareUrl}`;
+    const text = `Hey team! I am participating in ORKESTRIM 2K26 on 31 Oct 2026. Here is my target lineup. Join my squad! Link: ${shareUrl}`;
 
     if (navigator.share) {
       navigator.share({
         title: 'ORKESTRIM 2K26 Lineup',
         text,
         url: shareUrl,
-      }).catch(() => {});
+      }).catch(() => { });
     } else {
       window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
     }
@@ -40,7 +40,7 @@ export const MyListSection: React.FC<MyListSectionProps> = ({
     const lines = [
       "===========================================================",
       "  ORKESTRIM 2K26 — MY OFFICIAL SYMPOSIUM LINEUP",
-      "  Date: Saturday, 24 October 2026",
+      "  Date: Saturday, 31 October 2026",
       "===========================================================",
       "",
       ...bookmarkedEvents.map(
@@ -50,7 +50,7 @@ export const MyListSection: React.FC<MyListSectionProps> = ({
           `- Date & Time: ${ev.date} • ${ev.time}\n` +
           `- Venue: ${ev.venue}\n` +
           `- Team Size: ${ev.teamSize}\n` +
-          `- Coordinator: ${ev.coordinator.name} (${ev.coordinator.phone})\n`
+          `- Coordinator: ${ev.coordinator.name} (${ev.coordinator.phone})${ev.coordinator.name2 ? ` | Co-Coord: ${ev.coordinator.name2} (${ev.coordinator.phone2 || 'N/A'})` : ''}\n`
       ),
       "Visit: https://orkestrim.ac.in",
       "==========================================================="

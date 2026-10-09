@@ -23,6 +23,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const searchInputRef = useRef<HTMLInputElement>(null);
   const notifRef = useRef<HTMLDivElement>(null);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,13 +35,22 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, []);
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (notifRef.current && !notifRef.current.contains(e.target as Node)) {
+    const handleClickOutside = (e: Event) => {
+      const target = e.target as Node;
+      if (notifRef.current && !notifRef.current.contains(target)) {
         setIsNotifOpen(false);
       }
+      if (searchContainerRef.current && !searchContainerRef.current.contains(target)) {
+        // Only close if it's open, but we don't necessarily clear the query so they don't lose search state
+        setIsSearchOpen(false);
+      }
     };
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
   }, []);
 
   const handleToggleSearch = () => {
@@ -99,7 +109,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               </span>
             </button>
             <a href="#venue" className="hover:text-white transition-colors">
-              Food & Venue
+              Streaming at
+            </a>
+            <a href="#cast" className="hover:text-white transition-colors">
+              Cast & Crew
             </a>
           </nav>
         </div>
@@ -108,6 +121,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center gap-4 sm:gap-5">
           {/* Search Toggle */}
           <div
+            ref={searchContainerRef}
             className={`flex items-center rounded transition-all duration-200 ${isSearchOpen
               ? 'bg-black/80 border border-white/30 px-2.5 py-1.5'
               : 'bg-transparent border border-transparent'
@@ -156,10 +170,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
 
             {isNotifOpen && (
-              <div className="absolute top-full right-0 mt-3 w-80 bg-[#181818] border border-white/15 rounded-lg shadow-2xl p-4 space-y-3 z-50 animate-in fade-in zoom-in-95 duration-150">
+              <div className="absolute top-full -right-[110px] sm:right-0 mt-3 w-[calc(100vw-32px)] max-w-[320px] sm:w-80 bg-[#181818] border border-white/15 rounded-lg shadow-2xl p-4 space-y-3 z-50 animate-in fade-in zoom-in-95 duration-150">
                 <div className="flex items-center justify-between border-b border-white/10 pb-2 text-xs font-bold text-neutral-400 uppercase">
                   <span>Announcements</span>
-                  <span className="text-[#E50914]">2 New</span>
+                  <span className="text-[#E50914]">1 New</span>
                 </div>
                 <div className="space-y-2.5 text-xs text-neutral-300">
                   <div className="p-2.5 rounded bg-black/40 border border-white/5 space-y-1">
@@ -167,12 +181,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                       Registration Live
                     </span>
                     <p className="leading-snug">Registration for Orkestrim 2K26 is officially open across all 5 arenas!</p>
-                  </div>
-                  <div className="p-2.5 rounded bg-black/40 border border-white/5 space-y-1">
-                    <span className="text-[10px] font-black uppercase text-amber-400 bg-amber-950/60 px-1.5 py-0.5 rounded">
-                      Schedule Reminder
-                    </span>
-                    <p className="leading-snug">Breakfast check-in begins at 08:30 AM on 24 Oct 2026. Refreshments provided.</p>
                   </div>
                 </div>
               </div>

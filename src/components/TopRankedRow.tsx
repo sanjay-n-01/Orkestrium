@@ -1,12 +1,10 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { motion } from 'motion/react';
-import { SymposiumEvent, AttendeePersona } from '../types/symposium';
-import { PERSONA_PROFILES } from '../data/symposiumData';
-import { ChevronLeft, ChevronRight, Play, Plus, Check, ThumbsUp, Info } from 'lucide-react';
+import { SymposiumEvent } from '../types/symposium';
+import { Play, Plus, Check, Info } from 'lucide-react';
 
 interface TopRankedRowProps {
   events: SymposiumEvent[];
-  currentPersona: AttendeePersona;
   bookmarkedIds: string[];
   onToggleBookmark: (id: string) => void;
   onSelectEvent: (event: SymposiumEvent) => void;
@@ -15,22 +13,13 @@ interface TopRankedRowProps {
 
 export const TopRankedRow: React.FC<TopRankedRowProps> = ({
   events,
-  currentPersona,
   bookmarkedIds,
   onToggleBookmark,
   onSelectEvent,
   onShowToast,
 }) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const activePersonaObj = PERSONA_PROFILES.find((p) => p.id === currentPersona) || PERSONA_PROFILES[0];
-
-  const getMatchScore = (event: SymposiumEvent): number => {
-    return activePersonaObj.matchScores[event.id] ?? event.matchScore;
-  };
-
-  // Sort events by match score when persona is specific, otherwise default rank order
-  const rankedEvents = [...events].sort((a, b) => getMatchScore(b) - getMatchScore(a));
+  // Sort events by match score
+  const rankedEvents = [...events].sort((a, b) => b.matchScore - a.matchScore);
 
   // We no longer need manual scroll since it's an auto-looping marquee
 
@@ -77,7 +66,7 @@ export const TopRankedRow: React.FC<TopRankedRowProps> = ({
               Top 5 Arenas in Orkestrim Today
             </h2>
             <p className="text-xs sm:text-sm text-neutral-400">
-              Ranked for {activePersonaObj.name} · Live Match Scores
+              Official Symposium Lineup · Live Match Scores
             </p>
           </div>
 
@@ -92,7 +81,7 @@ export const TopRankedRow: React.FC<TopRankedRowProps> = ({
           <div className="flex animate-marquee gap-6 pr-6 w-max items-stretch">
             {rankedEvents.slice(0, 5).map((event, idx) => {
               const rank = idx + 1;
-              const match = getMatchScore(event);
+              const match = event.matchScore;
               const inList = bookmarkedIds.includes(event.id);
 
               return (
@@ -157,14 +146,7 @@ export const TopRankedRow: React.FC<TopRankedRowProps> = ({
                         >
                           {inList ? <Check className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
                         </button>
-                        <button
-                          type="button"
-                          onClick={() => {}}
-                          className="w-8 h-8 rounded-full bg-white/10 text-white border border-white/20 hover:bg-white hover:text-black flex items-center justify-center transition-all"
-                          title="Like Arena"
-                        >
-                          <ThumbsUp className="w-3.5 h-3.5" />
-                        </button>
+
                         <button
                           type="button"
                           onClick={() => onSelectEvent(event)}
@@ -185,7 +167,7 @@ export const TopRankedRow: React.FC<TopRankedRowProps> = ({
           <div className="flex animate-marquee gap-6 pr-6 w-max items-stretch" aria-hidden="true">
             {rankedEvents.slice(0, 5).map((event, idx) => {
               const rank = idx + 1;
-              const match = getMatchScore(event);
+              const match = event.matchScore;
               const inList = bookmarkedIds.includes(event.id);
 
               return (
@@ -250,14 +232,7 @@ export const TopRankedRow: React.FC<TopRankedRowProps> = ({
                         >
                           {inList ? <Check className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
                         </button>
-                        <button
-                          type="button"
-                          onClick={() => {}}
-                          className="w-8 h-8 rounded-full bg-white/10 text-white border border-white/20 hover:bg-white hover:text-black flex items-center justify-center transition-all"
-                          title="Like Arena"
-                        >
-                          <ThumbsUp className="w-3.5 h-3.5" />
-                        </button>
+
                         <button
                           type="button"
                           onClick={() => onSelectEvent(event)}

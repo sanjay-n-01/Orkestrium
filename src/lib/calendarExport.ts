@@ -4,8 +4,8 @@ export function getGoogleCalendarUrl(site: SiteConfig): string {
   const title = "ORKESTRIM 2K26 // National Level Technical Symposium";
   const details = "Where ideas become the main event. 5 original arenas. Department of Computer Science & Engineering.";
   const location = site.college && site.college !== "TBD" ? `${site.college}, ${site.address}` : "Campus Main Auditorium";
-  const startDate = "20261024T033000Z"; // 09:00 AM IST (03:30 UTC)
-  const endDate = "20261024T113000Z";   // 05:00 PM IST (11:30 UTC)
+  const startDate = "20261031T033000Z"; // 09:00 AM IST (03:30 UTC)
+  const endDate = "20261031T113000Z";   // 05:00 PM IST (11:30 UTC)
 
   return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(location)}`;
 }
@@ -15,8 +15,8 @@ export function downloadIcsFile(site: SiteConfig): boolean {
     const title = "ORKESTRIM 2K26 // National Level Technical Symposium";
     const details = "Where ideas become the main event. 5 original arenas. Department of Computer Science & Engineering.";
     const location = site.college && site.college !== "TBD" ? `${site.college}, ${site.address}` : "Campus Main Auditorium";
-    const startDate = "20261024T033000Z"; // 09:00 AM IST
-    const endDate = "20261024T113000Z";   // 05:00 PM IST
+    const startDate = "20261031T033000Z"; // 09:00 AM IST
+    const endDate = "20261031T113000Z";   // 05:00 PM IST
 
     const icsContent = [
       "BEGIN:VCALENDAR",

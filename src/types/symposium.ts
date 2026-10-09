@@ -1,10 +1,12 @@
-export type CategoryFilter = 'all' | 'tech' | 'presentation' | 'strategy' | 'nontech';
-
-export type AttendeePersona = 'hacker' | 'presenter' | 'quizzer' | 'quester' | 'all';
+export type CategoryFilter = 'all' | 'tech' | 'nontech';
 
 export interface Coordinator {
   name: string;
   phone: string;
+  name2?: string;
+  phone2?: string;
+  name3?: string;
+  phone3?: string;
 }
 
 export interface Organizer {
@@ -59,12 +61,4 @@ export interface SiteConfig {
   trainRoute: string[];
   organizers: Organizer[];
   email: string;
-}
-
-export interface PersonaProfile {
-  id: AttendeePersona;
-  name: string;
-  avatar: string;
-  description: string;
-  matchScores: Record<string, number>;
 }

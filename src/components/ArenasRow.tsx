@@ -1,14 +1,13 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { SymposiumEvent, CategoryFilter, AttendeePersona } from '../types/symposium';
-import { PERSONA_PROFILES } from '../data/symposiumData';
+import { SymposiumEvent, CategoryFilter } from '../types/symposium';
 import { Play, Plus, Check, Info, Film } from 'lucide-react';
+import { BentoCard } from './ui/bento';
 
 interface ArenasRowProps {
   events: SymposiumEvent[];
   activeCategory: CategoryFilter;
   searchQuery: string;
-  currentPersona: AttendeePersona;
   bookmarkedIds: string[];
   onToggleBookmark: (id: string) => void;
   onSelectEvent: (event: SymposiumEvent) => void;
@@ -19,21 +18,16 @@ export const ArenasRow: React.FC<ArenasRowProps> = ({
   events,
   activeCategory,
   searchQuery,
-  currentPersona,
   bookmarkedIds,
   onToggleBookmark,
   onSelectEvent,
   onShowToast,
 }) => {
-  const activePersonaObj = PERSONA_PROFILES.find((p) => p.id === currentPersona) || PERSONA_PROFILES[0];
 
   const filteredEvents = events.filter((ev) => {
-    // Category match
     if (activeCategory !== 'all') {
-      if (activeCategory === 'tech' && !(ev.id === 'brainiacs-battle' || ev.id === 'techno-connect')) return false;
-      if (activeCategory === 'presentation' && !(ev.id === 'paper-spark' || ev.id === 'techno-ads')) return false;
-      if (activeCategory === 'strategy' && !(ev.id === 'brainiacs-battle' || ev.id === 'techno-connect')) return false;
-      if (activeCategory === 'nontech' && !(ev.id === 'techno-ads' || ev.id === 'techno-treasure')) return false;
+      if (activeCategory === 'tech' && !(ev.id === 'paper-spark' || ev.id === 'brainiacs-battle')) return false;
+      if (activeCategory === 'nontech' && (ev.id === 'paper-spark' || ev.id === 'brainiacs-battle')) return false;
     }
     // Search query match
     if (searchQuery.trim()) {
@@ -77,102 +71,90 @@ export const ArenasRow: React.FC<ArenasRowProps> = ({
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {filteredEvents.map((event) => {
-              const match = activePersonaObj.matchScores[event.id] ?? event.matchScore;
+          <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-6">
+            {filteredEvents.map((event, index) => {
+              const spanClasses = [
+                "lg:col-span-3", // 1st
+                "lg:col-span-3", // 2nd
+                "lg:col-span-2", // 3rd
+                "lg:col-span-2", // 4th
+                "lg:col-span-2", // 5th
+              ];
+              const span = spanClasses[index % 5];
+              
+              // Get an unsplash image for graphic based on event id (using generic tech/event images)
+              const imageUrls = [
+                "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
+                "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
+                "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80",
+                "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&q=80",
+                "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80"
+              ];
+              const originalIndex = events.findIndex(e => e.id === event.id);
+              const imageUrl = imageUrls[Math.max(0, originalIndex) % 5];
+
               const inList = bookmarkedIds.includes(event.id);
 
               return (
-                <article
+                <BentoCard
                   key={event.id}
                   onClick={() => onSelectEvent(event)}
-                  className="group bg-[#181818] border border-white/10 rounded-lg overflow-hidden shadow-lg hover:border-[#E50914] hover:shadow-[0_10px_30px_rgba(229,9,20,0.25)] transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between"
-                >
-                  {/* Card Art Banner */}
-                  <div className="relative h-36 bg-gradient-to-r from-[#201014] via-[#141414] to-[#0d0d0d] p-4 flex flex-col justify-between overflow-hidden">
-                    <div className="flex items-center justify-between relative z-10">
-                      <span className="text-[10px] font-black tracking-widest text-[#E50914] bg-black/60 px-2 py-0.5 rounded">
-                        {event.episode.toUpperCase()}
-                      </span>
-                      <span className="text-[11px] font-bold text-neutral-400">
-                        {event.duration}
-                      </span>
-                    </div>
-
-                    <div className="relative z-10">
-                      <span className="text-[10px] font-black uppercase text-amber-500 tracking-wider">
-                        {event.badge}
-                      </span>
-                      <h3 className="font-bebas text-2xl text-white tracking-wide truncate">
-                        {event.name}
-                      </h3>
-                    </div>
-
-                    {/* Subtle ambient gradient aura */}
-                    <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-[#E50914]/20 rounded-full blur-2xl group-hover:bg-[#E50914]/35 transition-colors pointer-events-none" />
-                  </div>
-
-                  {/* Card Body */}
-                  <div className="p-4 space-y-3 flex-1 flex flex-col justify-between">
-                    <p className="text-xs text-neutral-300 line-clamp-2 leading-relaxed">
-                      {event.tagline}
-                    </p>
-
-                    <div className="space-y-3 pt-2 border-t border-white/10">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-emerald-400 font-extrabold">{match}% Match</span>
-                        <span className="text-neutral-400 text-[11px] truncate max-w-[160px]">
-                          {event.genre}
-                        </span>
-                      </div>
-
-                      {/* Card Action Buttons */}
-                      <div
-                        className="flex items-center gap-2 pt-1"
-                        onClick={(e) => e.stopPropagation()}
+                  className={span}
+                  eyebrow={`${event.badge} // ${event.genre}`}
+                  title={event.name}
+                  description={event.tagline}
+                  graphic={
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-screen transition-transform duration-500 group-hover:scale-105" 
+                      style={{ backgroundImage: `url(${imageUrl})` }} 
+                    />
+                  }
+                  actions={
+                    <div
+                      className="flex items-center gap-2"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onSelectEvent(event);
+                        }}
+                        className="flex-1 py-1.5 px-3 rounded bg-white text-black hover:bg-[#E50914] hover:text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-sm"
+                        aria-label={`Register for ${event.name}`}
                       >
-                        <button
-                          type="button"
-                          onClick={() => {
-                            onSelectEvent(event);
-                          }}
-                          className="flex-1 py-1.5 px-3 rounded bg-white text-black hover:bg-[#E50914] hover:text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-sm"
-                          aria-label={`Register for ${event.name}`}
-                        >
-                          <Play className="w-3.5 h-3.5 fill-current" />
-                          <span>Register</span>
-                        </button>
+                        <Play className="w-3.5 h-3.5 fill-current" />
+                        <span>Register</span>
+                      </button>
 
-                        <button
-                          type="button"
-                          onClick={() => {
-                            onToggleBookmark(event.id);
-                            onShowToast(inList ? "Removed from My List" : "✓ Added to My List");
-                          }}
-                          className={`p-2 rounded border transition-all ${
-                            inList
-                              ? 'bg-[#E50914] text-white border-[#E50914]'
-                              : 'bg-white/10 text-white border-white/20 hover:bg-white hover:text-black'
-                          }`}
-                          title="Bookmark Arena"
-                          aria-label={inList ? `Remove ${event.name} from My List` : `Add ${event.name} to My List`}
-                        >
-                          {inList ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-                        </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onToggleBookmark(event.id);
+                          onShowToast(inList ? "Removed from My List" : "✓ Added to My List");
+                        }}
+                        className={`p-2 rounded border transition-all ${
+                          inList
+                            ? 'bg-[#E50914] text-white border-[#E50914]'
+                            : 'bg-white/10 text-white border-white/20 hover:bg-white hover:text-black'
+                        }`}
+                        title="Bookmark Arena"
+                        aria-label={inList ? `Remove ${event.name} from My List` : `Add ${event.name} to My List`}
+                      >
+                        {inList ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                      </button>
 
-                        <button
-                          type="button"
-                          onClick={() => onSelectEvent(event)}
-                          className="p-2 rounded bg-white/10 text-white border border-white/20 hover:bg-white hover:text-black transition-all"
-                          title="View Details"
-                          aria-label={`View details for ${event.name}`}
-                        >
-                          <Info className="w-4 h-4" />
-                        </button>
-                      </div>
+                      <button
+                        type="button"
+                        onClick={() => onSelectEvent(event)}
+                        className="p-2 rounded bg-white/10 text-white border border-white/20 hover:bg-white hover:text-black transition-all"
+                        title="View Details"
+                        aria-label={`View details for ${event.name}`}
+                      >
+                        <Info className="w-4 h-4" />
+                      </button>
                     </div>
-                  </div>
-                </article>
+                  }
+                />
               );
             })}
           </div>

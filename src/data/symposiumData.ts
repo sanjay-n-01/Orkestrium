@@ -1,14 +1,14 @@
-import { SiteConfig, SymposiumEvent, ScheduleEpisode, PersonaProfile } from '../types/symposium';
+import { SiteConfig, SymposiumEvent, ScheduleEpisode } from '../types/symposium';
 
 export const SITE_CONFIG: SiteConfig = {
-  college: "Department of Computer Science & Engineering",
-  dateLabel: "24 Oct 2026",
-  startISO: "2026-10-24T09:00:00+05:30",
-  venue: "Main Campus Auditorium & Tech Arenas",
-  address: "University Campus, Tech Boulevard, Knowledge City",
-  mapLink: "https://maps.google.com/?q=College+of+Engineering",
+  college: "Department of Electronics and Instrumentation Engineering",
+  dateLabel: "31 Oct 2026",
+  startISO: "2026-10-31T09:00:00+05:30",
+  venue: "SRM Valliammai Engineering College",
+  address: "Kattankulathur, Chengalpattu, Tamil Nadu, India",
+  mapLink: "https://maps.app.goo.gl/Q3k6m1377q86u4K78",
   registrationLink: "https://docs.google.com/forms/d/e/1FAIpQLScOrkestrim2K26/viewform",
-  food: "Breakfast & full-course lunch banquet provided by the Hospitality Committee (Veg & Non-Veg options available), plus high-energy beverages and refreshments during intermissions.",
+  food: "Lunch and refreshments will be provided",
   busRoute: [
     "Campus Route 04 from Central Railway Station (every 15 mins)",
     "Express Shuttle from Metro Junction Platform 2"
@@ -19,9 +19,9 @@ export const SITE_CONFIG: SiteConfig = {
   ],
   organizers: [
     {
-      name: "Sanjay N",
-      phone: "+91 98765 43210",
-      role: "Lead Student Coordinator"
+      name: "Sanjay S",
+      phone: "+91 9342176100",
+      role: "President"
     },
     {
       name: "Ananya Sharma",
@@ -45,7 +45,7 @@ export const SITE_CONFIG: SiteConfig = {
 export const OFFICIAL_EVENTS: SymposiumEvent[] = [
   {
     id: "paper-spark",
-    name: "Paper Spark",
+    name: "Paper Fusion",
     episode: "Episode 01",
     tagline: "Present breakthrough research papers and defend innovative technical paradigms.",
     genre: "Paper Presentation • Research • Defense",
@@ -54,7 +54,7 @@ export const OFFICIAL_EVENTS: SymposiumEvent[] = [
     duration: "90m",
     badge: "#1 IN RESEARCH",
     matchScore: 98,
-    date: "24 Oct 2026",
+    date: "31 Oct 2026",
     time: "10:00 AM — 11:30 AM",
     venue: "Seminar Hall 1",
     teamSize: "1 to 3 Members",
@@ -68,14 +68,18 @@ export const OFFICIAL_EVENTS: SymposiumEvent[] = [
       "Plagiarism strictly prohibited; submissions above 15% similarity will be disqualified immediately."
     ],
     coordinator: {
-      name: "Rahul Verma",
-      phone: "+91 98765 43220"
+      name: "Sreeja RK",
+      phone: "+91 9345886898",
+      name2: "Rajeswari K",
+      phone2: "+91 9597796458",
+      name3: "Petchiammal R",
+      phone3: "+91 9025719247"
     },
     formLink: "https://docs.google.com/forms/d/e/1FAIpQLScOrkestrim2K26-PaperSpark/viewform"
   },
   {
     id: "brainiacs-battle",
-    name: "Brainiac's Battle",
+    name: "CASHFLIX",
     episode: "Episode 02",
     tagline: "High-intensity technical quiz testing algorithmic speed, core concepts, and trivia mastery.",
     genre: "Tech Quiz • Rapid Fire • Trivia",
@@ -84,7 +88,7 @@ export const OFFICIAL_EVENTS: SymposiumEvent[] = [
     duration: "75m",
     badge: "#2 IN STRATEGY",
     matchScore: 96,
-    date: "24 Oct 2026",
+    date: "31 Oct 2026",
     time: "11:45 AM — 01:00 PM",
     venue: "Tech Studio Lab",
     teamSize: "2 Members",
@@ -98,14 +102,16 @@ export const OFFICIAL_EVENTS: SymposiumEvent[] = [
       "Quizmaster's ruling is final and binding in all rounds."
     ],
     coordinator: {
-      name: "Devika Nair",
-      phone: "+91 98765 43221"
+      name: "A. Vijay",
+      phone: "+91 6382358039",
+      name2: "S. Sangamithra",
+      phone2: "+91 9345674866"
     },
     formLink: "https://docs.google.com/forms/d/e/1FAIpQLScOrkestrim2K26-Brainiac/viewform"
   },
   {
     id: "techno-connect",
-    name: "Techno Connect",
+    name: "Beyond Limits",
     episode: "Episode 03",
     tagline: "Connect cryptic visual clues, decode hidden tech brands, algorithms, and technical paradigms.",
     genre: "Connection • Deduction • Visual Logic",
@@ -114,7 +120,7 @@ export const OFFICIAL_EVENTS: SymposiumEvent[] = [
     duration: "75m",
     badge: "#3 IN DEDUCTION",
     matchScore: 95,
-    date: "24 Oct 2026",
+    date: "31 Oct 2026",
     time: "11:45 AM — 01:00 PM",
     venue: "Audio-Visual Hall",
     teamSize: "2 Members",
@@ -128,14 +134,16 @@ export const OFFICIAL_EVENTS: SymposiumEvent[] = [
       "No external consultation or digital devices permitted."
     ],
     coordinator: {
-      name: "Arjun Krishnan",
-      phone: "+91 98765 43222"
+      name: "Durai Murugan M",
+      phone: "+91 9342589541",
+      name2: "VishnuVignesh V",
+      phone2: "+91 9344486984"
     },
     formLink: "https://docs.google.com/forms/d/e/1FAIpQLScOrkestrim2K26-TechnoConnect/viewform"
   },
   {
     id: "techno-ads",
-    name: "Techno Ads",
+    name: "BrandBlitz",
     episode: "Episode 04",
     tagline: "Market futuristic prototypes and craft the ultimate technical sales pitch.",
     genre: "Creative Pitch • Marketing • Ad-Mad",
@@ -144,7 +152,7 @@ export const OFFICIAL_EVENTS: SymposiumEvent[] = [
     duration: "90m",
     badge: "#4 IN CREATIVITY",
     matchScore: 94,
-    date: "24 Oct 2026",
+    date: "31 Oct 2026",
     time: "02:00 PM — 03:30 PM",
     venue: "Open Amphitheatre / Stage 2",
     teamSize: "3 to 5 Members",
@@ -158,14 +166,16 @@ export const OFFICIAL_EVENTS: SymposiumEvent[] = [
       "Vulgarity, derogatory language, or offensive references strictly prohibited and cause immediate ejection."
     ],
     coordinator: {
-      name: "Sneha Mukherjee",
-      phone: "+91 98765 43223"
+      name: "Kishore G",
+      phone: "+91 9345825699",
+      name2: "Balaji N",
+      phone2: "+91 9626510436"
     },
     formLink: "https://docs.google.com/forms/d/e/1FAIpQLScOrkestrim2K26-TechnoAds/viewform"
   },
   {
     id: "techno-treasure",
-    name: "Techno Treasure",
+    name: "The Voyage X",
     episode: "Episode 05",
     tagline: "Crack algorithmic ciphers and race across campus to unearth the hidden payload.",
     genre: "Campus Hunt • Cryptic Clues • Adventure",
@@ -174,7 +184,7 @@ export const OFFICIAL_EVENTS: SymposiumEvent[] = [
     duration: "90m",
     badge: "#5 IN ADVENTURE",
     matchScore: 97,
-    date: "24 Oct 2026",
+    date: "31 Oct 2026",
     time: "02:00 PM — 03:30 PM",
     venue: "Campus Grounds & Tech Quadrant",
     teamSize: "3 to 4 Members",
@@ -188,8 +198,10 @@ export const OFFICIAL_EVENTS: SymposiumEvent[] = [
       "The first squad to bring all collected checkpoint seals and decipher the final payload wins."
     ],
     coordinator: {
-      name: "Vikramaditya S",
-      phone: "+91 98765 43224"
+      name: "Sriram R",
+      phone: "+91 9884424123",
+      name2: "Vignesh S",
+      phone2: "+91 8148920928"
     },
     formLink: "https://docs.google.com/forms/d/e/1FAIpQLScOrkestrim2K26-Treasure/viewform"
   }
@@ -261,70 +273,4 @@ export const SCHEDULE_EPISODES: ScheduleEpisode[] = [
   }
 ];
 
-export const PERSONA_PROFILES: PersonaProfile[] = [
-  {
-    id: "hacker",
-    name: "The Coder",
-    avatar: "👨‍💻",
-    description: "Matches: Brainiac's Battle, Techno Connect",
-    matchScores: {
-      "brainiacs-battle": 99,
-      "techno-connect": 98,
-      "paper-spark": 95,
-      "techno-treasure": 91,
-      "techno-ads": 88
-    }
-  },
-  {
-    id: "presenter",
-    name: "The Presenter",
-    avatar: "📊",
-    description: "Matches: Paper Spark, Techno Ads",
-    matchScores: {
-      "paper-spark": 99,
-      "techno-ads": 98,
-      "brainiacs-battle": 94,
-      "techno-connect": 90,
-      "techno-treasure": 87
-    }
-  },
-  {
-    id: "quizzer",
-    name: "The Strategist",
-    avatar: "🧠",
-    description: "Matches: Brainiac's Battle, Techno Connect",
-    matchScores: {
-      "brainiacs-battle": 99,
-      "techno-connect": 98,
-      "paper-spark": 93,
-      "techno-treasure": 91,
-      "techno-ads": 89
-    }
-  },
-  {
-    id: "quester",
-    name: "The Adventurer",
-    avatar: "🕵️",
-    description: "Matches: Techno Treasure, Techno Connect",
-    matchScores: {
-      "techno-treasure": 99,
-      "techno-connect": 95,
-      "brainiacs-battle": 92,
-      "techno-ads": 90,
-      "paper-spark": 86
-    }
-  },
-  {
-    id: "all",
-    name: "All-Access Binger",
-    avatar: "🍿",
-    description: "Full 5-Arena All-Access Pass",
-    matchScores: {
-      "paper-spark": 98,
-      "techno-treasure": 97,
-      "brainiacs-battle": 96,
-      "techno-connect": 95,
-      "techno-ads": 94
-    }
-  }
-];
+
