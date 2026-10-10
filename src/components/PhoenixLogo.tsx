@@ -22,7 +22,7 @@ export const PhoenixWordmark: React.FC<{ className?: string }> = ({
 }) => {
   return (
     <span
-      className={`font-bebas text-2xl sm:text-3xl tracking-[0.06em] text-[#E50914] font-black uppercase select-none drop-shadow-[0_0_12px_rgba(229,9,20,0.65)] ${className}`}
+      className={`font-bebas tracking-[0.06em] text-[#E50914] font-black uppercase select-none drop-shadow-[0_0_12px_rgba(229,9,20,0.65)] shrink-0 ${className ? className : 'text-2xl sm:text-3xl'}`}
     >
       ORKESTRIM
     </span>

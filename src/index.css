@@ -11,6 +11,7 @@
     font-family: var(--font-ui);
     background-color: #0e0e0e;
     color: #ffffff;
+    overflow-x: clip;
   }
 }
 

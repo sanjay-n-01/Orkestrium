@@ -50,7 +50,7 @@ export const MyListSection: React.FC<MyListSectionProps> = ({
           `- Date & Time: ${ev.date} • ${ev.time}\n` +
           `- Venue: ${ev.venue}\n` +
           `- Team Size: ${ev.teamSize}\n` +
-          `- Coordinator: ${ev.coordinator.name} (${ev.coordinator.phone})${ev.coordinator.name2 ? ` | Co-Coord: ${ev.coordinator.name2} (${ev.coordinator.phone2 || 'N/A'})` : ''}\n`
+          `- Coordinator: ${ev.coordinator.name} (${ev.coordinator.phone})${ev.coordinator.name2 ? ` | Co-Coord: ${ev.coordinator.name2} (${ev.coordinator.phone2 || 'N/A'})` : ''}${ev.coordinator.name3 ? ` | Co-Coord: ${ev.coordinator.name3} (${ev.coordinator.phone3 || 'N/A'})` : ''}\n`
       ),
       "Visit: https://orkestrim.ac.in",
       "==========================================================="
@@ -71,7 +71,7 @@ export const MyListSection: React.FC<MyListSectionProps> = ({
   return (
     <motion.section
       id="mylist"
-      className="relative py-10"
+      className="relative py-10 scroll-mt-20"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}

@@ -10,14 +10,25 @@ interface FinaleCtaProps {
 export const FinaleCta: React.FC<FinaleCtaProps> = ({ registrationLink }) => {
   return (
     <motion.section
-      className="relative py-20 px-4 text-center overflow-hidden border-t border-white/10 bg-gradient-to-b from-[#141414] via-[#1a0c0e] to-[#0e0e0e]"
+      className="relative py-20 px-4 text-center overflow-hidden border-t border-white/10 bg-black"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.7, ease: "easeOut" }}
     >
-      {/* Background fiery burst */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-r from-[#E50914]/20 via-amber-500/15 to-transparent rounded-full blur-3xl pointer-events-none" />
+      {/* Faint grid lines background */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
+          `,
+          backgroundSize: '36px 36px',
+          maskImage: 'radial-gradient(ellipse 85% 75% at 50% 50%, #000 60%, transparent 100%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 85% 75% at 50% 50%, #000 60%, transparent 100%)',
+        }}
+      />
 
       <div className="relative z-10 max-w-3xl mx-auto space-y-5">
         <div className="flex flex-col items-center justify-center gap-3">

@@ -52,14 +52,16 @@ export const BillboardHero: React.FC<BillboardHeroProps> = ({
   }, [startISO]);
 
   return (
-    <section ref={heroRef} id="hero" className="relative h-[300vh] bg-black z-0">
-
-      {/* Main Content Area (Sticky so it stays visible while scrolling) */}
-      <div className="sticky top-0 h-screen w-full flex items-center pt-28 pb-14 overflow-hidden pointer-events-none">
-
+    <section
+      ref={heroRef}
+      id="hero"
+      className="relative h-[180vh] sm:h-[200vh] bg-black z-0"
+    >
+      {/* Main Content Area (Sticky so it stays visible and plays 3D parallax while scrolling) */}
+      <div className="sticky top-0 h-screen w-full flex items-center pt-20 sm:pt-24 pb-12 sm:pb-14 overflow-hidden pointer-events-none">
         {/* 3D Parallax Gallery Background */}
         <div className="absolute inset-0 z-0 pointer-events-auto">
-          <ParallaxUnfurlingGallery scrollProgress={scrollYProgress} images={[]} />
+          <ParallaxUnfurlingGallery scrollProgress={scrollYProgress} />
         </div>
 
         {/* Cinematic Ambient Backdrop with Crimson Glow on right half */}

@@ -7,12 +7,15 @@ export interface Coordinator {
   phone2?: string;
   name3?: string;
   phone3?: string;
+  name4?: string;
+  phone4?: string;
 }
 
 export interface Organizer {
   name: string;
-  phone: string;
+  phone?: string;
   role?: string;
+  image?: string;
 }
 
 export interface SymposiumEvent {
@@ -34,6 +37,7 @@ export interface SymposiumEvent {
   fee: string;
   description: string;
   rules: string[];
+  highlight?: string;
   coordinator: Coordinator;
   formLink?: string;
 }

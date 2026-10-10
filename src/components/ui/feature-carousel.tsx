@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence, animate, useMotionValue, useReducedMotion, type PanInfo } from "motion/react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import { motion, AnimatePresence, animate, useMotionValue, useReducedMotion, useInView, type PanInfo } from "motion/react";
 import { cn } from "../../lib/utils";
 
 /*
@@ -49,13 +49,16 @@ export default function FeatureCarousel({
   className,
   ariaLabel = "Photo carousel",
 }: FeatureCarouselProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { amount: 0.25 });
   const [step, setStep] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const reduceMotion = useReducedMotion();
   const len = items.length;
   // Horizontal drag offset shared by the whole stack; springs back on release.
   const dragX = useMotionValue(0);
-  const dragged = React.useRef(false);
+  const dragged = useRef(false);
+  const hasEnteredRef = useRef(false);
 
   const currentIndex = ((step % len) + len) % len;
 
@@ -66,11 +69,36 @@ export default function FeatureCarousel({
     if (delta !== 0) go(delta);
   };
 
+  // Reset to the very first item (Sanjay) whenever user scrolls into / lands on the section
   useEffect(() => {
-    if (isPaused || !autoplay || len < 2) return;
+    if (isInView) {
+      if (!hasEnteredRef.current) {
+        setStep(0);
+        hasEnteredRef.current = true;
+      }
+    } else {
+      hasEnteredRef.current = false;
+    }
+  }, [isInView]);
+
+  // Also reset to item 0 if user clicks navbar or anchor link to #cast or #office-bearers
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash.toLowerCase();
+      if (hash === "#cast" || hash === "#office-bearers") {
+        setStep(0);
+      }
+    };
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
+  }, []);
+
+  // ONLY autoplay when the carousel is actually in the viewport and not paused
+  useEffect(() => {
+    if (isPaused || !isInView || !autoplay || len < 2) return;
     const interval = setInterval(() => go(1), autoplay);
     return () => clearInterval(interval);
-  }, [go, isPaused, autoplay, len]);
+  }, [go, isPaused, isInView, autoplay, len]);
 
   const onPanStart = () => {
     dragged.current = true;
@@ -107,6 +135,7 @@ export default function FeatureCarousel({
 
   return (
     <div
+      ref={containerRef}
       className={cn("w-full select-none outline-none", className)}
       role="region"
       aria-roledescription="carousel"
@@ -174,7 +203,7 @@ export default function FeatureCarousel({
                       <div className="mb-2 w-fit rounded-full border border-white/20 bg-[#0e0e0e] px-3 py-1 text-[10px] font-normal uppercase tracking-[0.2em] text-white shadow-lg sm:mb-3 sm:px-4 sm:py-1.5 sm:text-[11px]">
                         {item.label}
                       </div>
-                      <p className="text-lg font-normal leading-tight tracking-tight text-white drop-shadow-md sm:text-2xl">
+                      <p className="mb-4 text-lg font-bold leading-tight tracking-tight text-white drop-shadow-md sm:text-2xl">
                         {item.description}
                       </p>
                     </motion.div>

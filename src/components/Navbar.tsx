@@ -72,16 +72,20 @@ export const Navbar: React.FC<NavbarProps> = ({
         : 'bg-gradient-to-b from-black/95 via-black/60 to-transparent'
         }`}
     >
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-8 h-full flex items-center justify-between gap-6">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-8 h-full flex items-center justify-between gap-4 sm:gap-6">
         {/* Left: Brand Logo + Nav Links */}
-        <div className="flex items-center gap-7 lg:gap-9">
+        <div className="flex items-center gap-7 lg:gap-9 shrink-0">
           <a
             href="#hero"
-            className="flex items-center gap-2.5 focus-visible:outline-none group select-none"
+            className="flex items-center gap-2 sm:gap-2.5 focus-visible:outline-none group select-none shrink-0"
             aria-label="Orkestrim Home"
           >
-            <img src="/assets/logo-mark.svg" alt="Orkestrim Logo" className="group-hover:scale-105 transition-transform w-[34px] h-[34px] object-contain drop-shadow-[0_0_12px_rgba(229,9,20,0.5)]" />
-            <PhoenixWordmark />
+            <img
+              src="/assets/logo-mark.svg"
+              alt="Orkestrim Logo"
+              className="group-hover:scale-105 transition-transform w-7 h-7 sm:w-[34px] sm:h-[34px] object-contain drop-shadow-[0_0_12px_rgba(229,9,20,0.5)] shrink-0"
+            />
+            <PhoenixWordmark className="text-xl sm:text-2xl md:text-3xl shrink-0" />
           </a>
 
           {/* Desktop Navigation Links */}
@@ -118,12 +122,12 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Right: Search, Notification Bell, Register Now Button */}
-        <div className="flex items-center gap-4 sm:gap-5">
+        <div className="flex items-center justify-end gap-2.5 sm:gap-5 min-w-0 ml-auto">
           {/* Search Toggle */}
           <div
             ref={searchContainerRef}
-            className={`flex items-center rounded transition-all duration-200 ${isSearchOpen
-              ? 'bg-black/80 border border-white/30 px-2.5 py-1.5'
+            className={`flex items-center rounded transition-all duration-200 min-w-0 ${isSearchOpen
+              ? 'bg-black/80 border border-white/30 px-2 sm:px-2.5 py-1.5 shadow-lg'
               : 'bg-transparent border border-transparent'
               }`}
           >
@@ -132,7 +136,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={handleToggleSearch}
               aria-label="Search events"
               title="Search arenas"
-              className="text-white hover:text-neutral-300 transition-colors p-1"
+              className="text-white hover:text-neutral-300 transition-colors p-1 shrink-0"
             >
               <Search className="w-5 h-5" />
             </button>
@@ -142,14 +146,24 @@ export const Navbar: React.FC<NavbarProps> = ({
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder="Titles, tags, genres..."
-              className={`bg-transparent text-xs sm:text-sm text-white focus:outline-none transition-all duration-300 ${isSearchOpen ? 'w-36 sm:w-48 ml-2 opacity-100' : 'w-0 opacity-0 pointer-events-none'
+              className={`bg-transparent text-xs sm:text-sm text-white focus:outline-none transition-all duration-300 min-w-0 ${isSearchOpen
+                ? 'w-28 min-[400px]:w-36 sm:w-48 ml-1.5 sm:ml-2 opacity-100'
+                : 'w-0 opacity-0 pointer-events-none'
                 }`}
             />
-            {isSearchOpen && searchQuery && (
+            {isSearchOpen && (
               <button
                 type="button"
-                onClick={() => onSearchChange('')}
-                className="text-neutral-400 hover:text-white p-0.5 text-xs"
+                onClick={() => {
+                  if (searchQuery) {
+                    onSearchChange('');
+                    searchInputRef.current?.focus();
+                  } else {
+                    setIsSearchOpen(false);
+                  }
+                }}
+                className="text-neutral-400 hover:text-white p-0.5 text-xs shrink-0 ml-0.5"
+                aria-label="Close search"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -157,20 +171,20 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Notification Bell */}
-          <div ref={notifRef} className="relative">
+          <div ref={notifRef} className="relative shrink-0">
             <button
               type="button"
               onClick={() => setIsNotifOpen(!isNotifOpen)}
               aria-label="Symposium notifications"
               title="Symposium announcements"
-              className="relative p-1 text-white hover:text-neutral-300 transition-colors"
+              className="relative p-1 text-white hover:text-neutral-300 transition-colors shrink-0"
             >
               <Bell className="w-5 h-5" />
               <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-[#E50914]" />
             </button>
 
             {isNotifOpen && (
-              <div className="absolute top-full -right-[110px] sm:right-0 mt-3 w-[calc(100vw-32px)] max-w-[320px] sm:w-80 bg-[#181818] border border-white/15 rounded-lg shadow-2xl p-4 space-y-3 z-50 animate-in fade-in zoom-in-95 duration-150">
+              <div className="fixed sm:absolute top-[68px] sm:top-full left-4 sm:left-auto right-4 sm:right-0 mt-2 sm:mt-3 w-auto sm:w-80 max-w-[340px] bg-[#181818] border border-white/15 rounded-lg shadow-2xl p-4 space-y-3 z-50 animate-in fade-in zoom-in-95 duration-150">
                 <div className="flex items-center justify-between border-b border-white/10 pb-2 text-xs font-bold text-neutral-400 uppercase">
                   <span>Announcements</span>
                   <span className="text-[#E50914]">1 New</span>
@@ -192,7 +206,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             href={registrationLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center px-5 py-2 rounded bg-[#E50914] text-white font-bold text-sm tracking-wide hover:bg-[#b80710] transition-colors shadow-lg active:scale-95 whitespace-nowrap"
+            className={`inline-flex items-center justify-center px-3 sm:px-5 py-1.5 sm:py-2 rounded bg-[#E50914] text-white font-bold text-xs sm:text-sm tracking-wide hover:bg-[#b80710] transition-colors shadow-lg active:scale-95 whitespace-nowrap shrink-0 ${isSearchOpen ? 'hidden sm:inline-flex' : 'inline-flex'
+              }`}
           >
             Register Now
           </a>

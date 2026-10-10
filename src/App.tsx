@@ -23,7 +23,40 @@ import { CalendarModal } from './components/CalendarModal';
 import { Toast } from './components/Toast';
 import { Preloader } from './components/Preloader';
 import Faqs02 from './components/ui/faqs-02';
-import { ReactLenis } from 'lenis/react';
+import { ReactLenis, useLenis } from 'lenis/react';
+
+function ScrollToTopOnMount() {
+  const lenis = useLenis();
+
+  useEffect(() => {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
+    const resetToHero = () => {
+      if (lenis) {
+        lenis.scrollTo(0, { immediate: true });
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    };
+
+    resetToHero();
+
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+
+    const t1 = setTimeout(resetToHero, 50);
+    const t2 = setTimeout(resetToHero, 250);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [lenis]);
+
+  return null;
+}
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -82,7 +115,8 @@ export default function App() {
 
   return (
     <ReactLenis root>
-      <div className="min-h-screen bg-[#0e0e0e] text-white flex flex-col selection:bg-[#E50914] selection:text-white pb-14 md:pb-0 overflow-clip">
+      <ScrollToTopOnMount />
+      <div className="min-h-screen bg-[#0e0e0e] text-white flex flex-col selection:bg-[#E50914] selection:text-white pb-14 md:pb-0">
         <Preloader />
       {/* Top Navigation */}
       <Navbar
@@ -103,7 +137,7 @@ export default function App() {
         />
 
         {/* Sticky Category Filter Bar */}
-        <div className="relative z-10 bg-[#0e0e0e] rounded-t-3xl sm:rounded-t-[3rem] pt-6 mt-[-100vh]">
+        <div className="relative z-10 bg-[#0e0e0e] rounded-t-3xl sm:rounded-t-[3rem] pt-6 -mt-[80vh] sm:-mt-[100vh] shadow-[0_-25px_60px_rgba(0,0,0,0.95)] border-t border-white/5">
           <GenreFilterBar
             activeCategory={activeCategory}
             onSelectCategory={setActiveCategory}

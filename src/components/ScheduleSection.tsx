@@ -19,7 +19,7 @@ export const ScheduleSection: React.FC<ScheduleSectionProps> = ({ site, onShowTo
   return (
     <motion.section
       id="schedule"
-      className="relative py-10 bg-black/30 border-t border-white/10"
+      className="relative py-10 bg-black/30 border-t border-white/10 scroll-mt-20"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}

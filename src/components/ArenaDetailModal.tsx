@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SymposiumEvent } from '../types/symposium';
-import { X, Play, Plus, Check, Download, Phone, User, Calendar, MapPin, Users, Award } from 'lucide-react';
+import { X, Play, Plus, Check, Download, Phone, User, Calendar, MapPin, Users, Award, Sparkles } from 'lucide-react';
 
 interface ArenaDetailModalProps {
   event: SymposiumEvent | null;
@@ -36,6 +36,39 @@ export const ArenaDetailModal: React.FC<ArenaDetailModalProps> = ({
 
   if (!event) return null;
 
+  const getCoordinators = (c: typeof event.coordinator) => {
+    const list: { name: string; phone?: string; role: string }[] = [];
+    if (c.name) {
+      list.push({
+        name: c.name,
+        phone: c.phone,
+        role: (c.name2 || c.name3) ? "Lead Coordinator" : "Arena Coordinator"
+      });
+    }
+    if (c.name2) {
+      list.push({
+        name: c.name2,
+        phone: c.phone2,
+        role: "Co-Coordinator"
+      });
+    }
+    if (c.name3) {
+      list.push({
+        name: c.name3,
+        phone: c.phone3,
+        role: "Co-Coordinator"
+      });
+    }
+    if (c.name4) {
+      list.push({
+        name: c.name4,
+        phone: c.phone4,
+        role: "Co-Coordinator"
+      });
+    }
+    return list;
+  };
+
   const downloadRulesText = () => {
     const content = [
       `===========================================================`,
@@ -48,15 +81,11 @@ export const ArenaDetailModal: React.FC<ArenaDetailModalProps> = ({
       event.description,
       ``,
       `--- OFFICIAL RULES & GUIDELINES ---`,
-      ...event.rules.map((r, i) => `${i + 1}. ${r}`),
+      ...event.rules.map((r, i) => `${i + 1}. ${r.replace(/<[^>]*>/g, '')}`),
+      ...(event.highlight ? [``, `--- TECHNICAL DOMAINS & HIGHLIGHTS ---`, event.highlight] : []),
       ``,
       `--- STUDENT COORDINATOR(S) ---`,
-      `Name: ${event.coordinator.name}`,
-      `Contact Phone: ${event.coordinator.phone}`,
-      ...(event.coordinator.name2 ? [
-        `Co-Coordinator: ${event.coordinator.name2}`,
-        `Contact Phone: ${event.coordinator.phone2 || 'N/A'}`
-      ] : []),
+      ...getCoordinators(event.coordinator).map((c, i) => `${i === 0 ? 'Lead Coordinator' : 'Co-Coordinator'}: ${c.name} | Phone: ${c.phone || 'N/A'}`),
       ``,
       `Registration Link: ${event.formLink || "Available at registration desk"}`,
       `===========================================================`
@@ -248,6 +277,17 @@ export const ArenaDetailModal: React.FC<ArenaDetailModalProps> = ({
               <p className="text-xs text-neutral-400 mb-3">
                 All participants must adhere to the following tournament codes. Failure to comply leads to forfeit.
               </p>
+              {event.highlight && (
+                <div className="bg-gradient-to-br from-[#E50914]/20 via-[#1e0d10] to-[#121212] border border-[#E50914]/40 rounded-lg p-4 mb-3 shadow-lg">
+                  <div className="flex items-center gap-2 text-[#E50914] text-xs font-bold uppercase tracking-wider mb-2">
+                    <Sparkles className="w-4 h-4 text-[#E50914]" />
+                    <span>Approved Technical Domains</span>
+                  </div>
+                  <pre className="text-xs sm:text-sm text-neutral-200 whitespace-pre-wrap font-sans leading-relaxed">
+                    {event.highlight}
+                  </pre>
+                </div>
+              )}
               <div className="space-y-2.5">
                 {event.rules.map((rule, idx) => (
                   <div
@@ -255,7 +295,10 @@ export const ArenaDetailModal: React.FC<ArenaDetailModalProps> = ({
                     className="flex items-start gap-3 bg-black/35 border border-white/10 border-l-4 border-l-[#E50914] rounded-md p-3.5 text-sm text-neutral-200"
                   >
                     <span className="font-black text-emerald-400 mt-0.5">✓</span>
-                    <span className="leading-snug">{rule}</span>
+                    <span
+                      className="leading-snug"
+                      dangerouslySetInnerHTML={{ __html: rule }}
+                    />
                   </div>
                 ))}
               </div>
@@ -264,59 +307,42 @@ export const ArenaDetailModal: React.FC<ArenaDetailModalProps> = ({
 
           {activeTab === 'contact' && (
             <div className="space-y-4 animate-in fade-in duration-150">
-              <div className="flex items-center gap-4 bg-black/40 border border-white/10 rounded-xl p-5">
-                <div className="w-14 h-14 rounded-full bg-neutral-800 border border-white/15 flex items-center justify-center text-2xl shrink-0">
-                  <User className="w-7 h-7 text-neutral-300" />
-                </div>
-                <div className="flex-1">
-                  <span className="text-xs font-black tracking-wider text-[#E50914] uppercase">
-                    {event.coordinator.name2 ? "Lead Coordinator" : "Arena Coordinator"}
-                  </span>
-                  <h4 className="text-xl font-bold text-white mt-0.5">{event.coordinator.name}</h4>
-                  <p className="text-xs text-neutral-400 mb-3">
-                    Assigned coordinator for {event.name} briefing, check-in, and scoring inquiries.
-                  </p>
-                  {event.coordinator.phone ? (
-                    <a
-                      href={`tel:${event.coordinator.phone}`}
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded bg-[#E50914] text-white font-bold text-xs sm:text-sm hover:bg-[#F40612] transition-colors"
-                    >
-                      <Phone className="w-3.5 h-3.5" />
-                      <span>Call {event.coordinator.phone}</span>
-                    </a>
-                  ) : (
-                    <span className="text-xs text-neutral-500">Phone: TBD at Help Desk</span>
-                  )}
-                </div>
-              </div>
-
-              {event.coordinator.name2 && (
-                <div className="flex items-center gap-4 bg-black/40 border border-white/10 rounded-xl p-5">
+              {getCoordinators(event.coordinator).map((coord, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-center gap-4 bg-black/40 border border-white/10 rounded-xl p-5 hover:border-white/20 transition-all"
+                >
                   <div className="w-14 h-14 rounded-full bg-neutral-800 border border-white/15 flex items-center justify-center text-2xl shrink-0">
                     <User className="w-7 h-7 text-neutral-300" />
                   </div>
-                  <div className="flex-1">
-                    <span className="text-xs font-black tracking-wider text-neutral-400 uppercase">
-                      Co-Coordinator
+                  <div className="flex-1 min-w-0">
+                    <span
+                      className={`text-xs font-black tracking-wider uppercase ${
+                        idx === 0 ? "text-[#E50914]" : "text-neutral-400"
+                      }`}
+                    >
+                      {coord.role}
                     </span>
-                    <h4 className="text-xl font-bold text-white mt-0.5">{event.coordinator.name2}</h4>
+                    <h4 className="text-xl font-bold text-white mt-0.5 truncate">{coord.name}</h4>
                     <p className="text-xs text-neutral-400 mb-3">
-                      Event co-coordinator assisting with participant coordination and support.
+                      {idx === 0
+                        ? `Lead coordinator for ${event.name} briefing, check-in, and scoring inquiries.`
+                        : `Event co-coordinator assisting with participant queries, on-ground coordination, and arena execution.`}
                     </p>
-                    {event.coordinator.phone2 ? (
+                    {coord.phone ? (
                       <a
-                        href={`tel:${event.coordinator.phone2}`}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm transition-colors border border-white/15"
+                        href={`tel:${coord.phone}`}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded bg-[#E50914] hover:bg-[#F40612] text-white font-bold text-xs sm:text-sm transition-all shadow-md shadow-[#E50914]/20 active:scale-95"
                       >
                         <Phone className="w-3.5 h-3.5" />
-                        <span>Call {event.coordinator.phone2}</span>
+                        <span>Call {coord.phone}</span>
                       </a>
                     ) : (
                       <span className="text-xs text-neutral-500">Phone: TBD at Help Desk</span>
                     )}
                   </div>
                 </div>
-              )}
+              ))}
             </div>
           )}
         </div>

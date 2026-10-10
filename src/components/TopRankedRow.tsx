@@ -52,7 +52,7 @@ export const TopRankedRow: React.FC<TopRankedRowProps> = ({
   return (
     <motion.section
       id="top5"
-      className="relative py-6"
+      className="relative py-6 scroll-mt-20"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}

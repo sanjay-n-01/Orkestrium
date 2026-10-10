@@ -42,57 +42,34 @@ export const CrewSection: React.FC<{ site: SiteConfig }> = ({ site }) => {
     },
   ];
 
-  // Subsection 2: Office Bearers (Student Executive Council)
-  const officeBearerItems: FeatureItem[] = [
-    {
-      id: "ob-1",
-      label: "President & Lead Coordinator",
-      image: unsplash("1534528741775-53994a69daeb"),
-      description: site.organizers[0]?.name || "Sanjay N",
-    },
-    {
-      id: "ob-2",
-      label: "Vice President & Tech Ops Head",
-      image: unsplash("1573496359142-b8d87734a5a2"),
-      description: site.organizers[1]?.name || "Ananya Sharma",
-    },
-    {
-      id: "ob-3",
-      label: "General Secretary & Arena Manager",
-      image: unsplash("1507003211169-0a1dd7228f2d"),
-      description: site.organizers[2]?.name || "Karthik Raja",
-    },
-    {
-      id: "ob-4",
-      label: "Treasurer & Hospitality Head",
-      image: unsplash("1580489944761-15a19d654956"),
-      description: site.organizers[3]?.name || "Pooja Patel",
-    },
-    {
-      id: "ob-5",
-      label: "Joint Secretary • Research Arena",
-      image: unsplash("1539571696357-5a69c17a67c6"),
-      description: "Rahul Verma",
-    },
-    {
-      id: "ob-6",
-      label: "Joint Secretary • Logic Arena",
-      image: unsplash("1517841905240-472988babdf9"),
-      description: "Devika Nair",
-    },
-    {
-      id: "ob-7",
-      label: "Creative Lead • Techno Ads",
-      image: unsplash("1524504388940-b1c1722653e1"),
-      description: "Sneha Mukherjee",
-    },
-    {
-      id: "ob-8",
-      label: "Logistics Lead • Techno Treasure",
-      image: unsplash("1506794778202-cad84cf45f1d"),
-      description: "Vikramaditya S",
-    },
+  // Default stock portrait images if an office bearer does not have a custom photo yet
+  const defaultBearerImages = [
+    unsplash("1534528741775-53994a69daeb"),
+    unsplash("1573496359142-b8d87734a5a2"),
+    unsplash("1507003211169-0a1dd7228f2d"),
+    unsplash("1580489944761-15a19d654956"),
+    unsplash("1539571696357-5a69c17a67c6"),
+    unsplash("1517841905240-472988babdf9"),
+    unsplash("1524504388940-b1c1722653e1"),
+    unsplash("1506794778202-cad84cf45f1d"),
   ];
+
+  // Subsection 2: Office Bearers (Student Executive Council)
+  const officeBearerItems: FeatureItem[] = (site.organizers && site.organizers.length > 0)
+    ? site.organizers.map((org, idx) => ({
+        id: `ob-${idx + 1}`,
+        label: org.role || "Executive Council",
+        image: org.image || defaultBearerImages[idx % defaultBearerImages.length],
+        description: org.name,
+      }))
+    : [
+        {
+          id: "ob-1",
+          label: "President",
+          image: defaultBearerImages[0],
+          description: "Sanjay N",
+        },
+      ];
 
   return (
     <section id="cast" className="py-14 bg-black/40 border-t border-white/5 scroll-mt-20">

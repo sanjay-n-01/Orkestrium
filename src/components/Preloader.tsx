@@ -5,6 +5,7 @@ export const Preloader: React.FC = () => {
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     document.body.style.overflow = 'hidden';
 
     let timeout1: NodeJS.Timeout;
@@ -15,6 +16,7 @@ export const Preloader: React.FC = () => {
       timeout2 = setTimeout(() => {
         setIsComplete(true);
         document.body.style.overflow = '';
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
       }, 4100);
     };
 

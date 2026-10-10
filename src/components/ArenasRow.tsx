@@ -44,7 +44,7 @@ export const ArenasRow: React.FC<ArenasRowProps> = ({
   return (
     <motion.section
       id="arenas"
-      className="relative py-8"
+      className="relative py-8 scroll-mt-20"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}

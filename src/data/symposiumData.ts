@@ -6,7 +6,7 @@ export const SITE_CONFIG: SiteConfig = {
   startISO: "2026-10-31T09:00:00+05:30",
   venue: "SRM Valliammai Engineering College",
   address: "Kattankulathur, Chengalpattu, Tamil Nadu, India",
-  mapLink: "https://maps.app.goo.gl/Q3k6m1377q86u4K78",
+  mapLink: "https://www.google.com/maps/search/?api=1&query=SRM+Valliammai+Engineering+College",
   registrationLink: "https://docs.google.com/forms/d/e/1FAIpQLScOrkestrim2K26/viewform",
   food: "Lunch and refreshments will be provided",
   busRoute: [
@@ -20,23 +20,63 @@ export const SITE_CONFIG: SiteConfig = {
   organizers: [
     {
       name: "Sanjay S",
-      phone: "+91 9342176100",
-      role: "President"
+      role: "President",
+      image: "/assets/office-bearers/sanjay.jpg"
     },
     {
-      name: "Ananya Sharma",
-      phone: "+91 98765 43211",
-      role: "Technical Operations Head"
+      name: "Balamuragan R",
+      role: "Vice President",
+      image: "/assets/office-bearers/balamurugan.jpg"
     },
     {
-      name: "Karthik Raja",
-      phone: "+91 98765 43212",
-      role: "Event & Arena Manager"
+      name: "Pooja S",
+      role: "Secretary",
+      image: "/assets/office-bearers/pooja.jpeg"
     },
     {
-      name: "Pooja Patel",
-      phone: "+91 98765 43213",
-      role: "Hospitality & Delegate Desk"
+      name: "Vishmithaa B",
+      role: "Joint Secretary",
+      image: "/assets/office-bearers/vishmathaa.png"
+    },
+    {
+      name: "Dharun Supreeth N",
+      role: "Treasurer",
+      image: "/assets/office-bearers/dharun_supreeth.jpg"
+    },
+    {
+      name: "Vignesh S",
+      role: "Overall Coordinator",
+      image: "/assets/office-bearers/vignesh.png"
+    },
+    {
+      name: "Srikanth K",
+      role: "Overall Coordinator",
+      image: "/assets/office-bearers/srikanth.jpg"
+    },
+    {
+      name: "Melvin D",
+      role: "Overall Coordinator",
+      image: "/assets/office-bearers/melvin.png?v=1"
+    },
+    {
+      name: "Lavanya S",
+      role: "Overall Coordinator",
+      image: "/assets/office-bearers/lavanya.png"
+    },
+    {
+      name: "Tanish S",
+      role: "Overall Coordinator",
+      image: "/assets/office-bearers/tanish.jpg"
+    },
+    {
+      name: "Samithra P",
+      role: "Overall Coordinator",
+      image: "/assets/office-bearers/samithra.png"
+    },
+    {
+      name: "Prithviraj N",
+      role: "Overall Coordinator",
+      image: "/assets/office-bearers/prithviraj.jpeg"
     }
   ],
   email: "orkestrim2k26@gmail.com"
@@ -50,23 +90,28 @@ export const OFFICIAL_EVENTS: SymposiumEvent[] = [
     tagline: "Present breakthrough research papers and defend innovative technical paradigms.",
     genre: "Paper Presentation • Research • Defense",
     category: "presentation",
-    rating: "U/A 13+",
+    rating: "U/A 16+",
     duration: "90m",
     badge: "#1 IN RESEARCH",
     matchScore: 98,
     date: "31 Oct 2026",
-    time: "10:00 AM — 11:30 AM",
-    venue: "Seminar Hall 1",
-    teamSize: "1 to 3 Members",
-    fee: "Free Entry / Included with Delegate Pass",
-    description: "Paper Spark offers budding researchers and engineers the premier platform to pitch cutting-edge developments across Artificial Intelligence, Distributed Systems, IoT, Cybersecurity, and Next-Gen Computing. Present your findings to an esteemed panel of faculty and industry veterans.",
+    time: "Morning Session",
+    venue: "Dept of EIE, 10th floor, New Building",
+    teamSize: "2 to 4 Members",
+    fee: "Rs.200/head",
+    description: "Paper theory spaarks the budding researchers to gather insight on their ideas pitched - on any category - from faculties",
     rules: [
-      "Maximum of 3 participants per team.",
-      "Abstract submission must adhere to standard IEEE 2-column format (max 6 pages).",
-      "Each team will be given 8 minutes for presentation followed by 2 minutes of Q&A with the jury.",
-      "Bring 2 hard copies of the full paper and a backup copy of your slide deck on a verified USB drive.",
-      "Plagiarism strictly prohibited; submissions above 15% similarity will be disqualified immediately."
+      "Round 1: THE HYPOTHESIS : Teams should submit abstract on or before 26th Oct. Abstract submission must adhere to standard IEEE 2-column format (max 6 pages). The best team moves forward.",
+      "Round 2: THE NOBEL MOMENT : Shortlisted teams will present their full paper to our faculties and winners are announced."
     ],
+    highlight: `Submitted papers must be related to one or more of the following technical domains:
+Internet of Things(IoT)
+Embedded Systems
+Instrumentation and Control Systems
+Robotics and Automation
+Artificial Intelligence and Machine Learning
+Sensors and Transducers
+Industrial Automation`,
     coordinator: {
       name: "Sreeja RK",
       phone: "+91 9345886898",
@@ -75,7 +120,7 @@ export const OFFICIAL_EVENTS: SymposiumEvent[] = [
       name3: "Petchiammal R",
       phone3: "+91 9025719247"
     },
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLScOrkestrim2K26-PaperSpark/viewform"
+    formLink: "https://docs.google.com/forms/d/e/1FAIpQLSeQG6PxKDYumsjixpVvhQE0lpmgzOW3f3rx4R9oy5meCyXvcw/viewform"
   },
   {
     id: "brainiacs-battle",
@@ -84,22 +129,20 @@ export const OFFICIAL_EVENTS: SymposiumEvent[] = [
     tagline: "High-intensity technical quiz testing algorithmic speed, core concepts, and trivia mastery.",
     genre: "Tech Quiz • Rapid Fire • Trivia",
     category: "strategy",
-    rating: "ALL AGES",
+    rating: "U/A 16+",
     duration: "75m",
     badge: "#2 IN STRATEGY",
     matchScore: 96,
     date: "31 Oct 2026",
-    time: "11:45 AM — 01:00 PM",
-    venue: "Tech Studio Lab",
-    teamSize: "2 Members",
-    fee: "Free Entry / Included with Delegate Pass",
-    description: "Step into the arena where milliseconds determine victory. Brainiac's Battle tests your fundamental comprehension of algorithms, computer architecture, tech history, programming puzzles, and industry breakthroughs across rapid buzzer rounds.",
+    time: "Morning Session",
+    venue: "Dept of EIE, 10th floor, New Building",
+    teamSize: "2-3 Members",
+    fee: "Rs.200/head",
+    description: "Train your brain to battle out the wrong and confusing options to crack the right ones via MCQ's, planning and capturing the hint to unlock the final vault!",
     rules: [
-      "Teams must comprise exactly 2 members.",
-      "Round 1: 30 written rapid-fire MCQs and code output predictions (20 mins). Top 6 teams qualify for the stage buzzer round.",
-      "Round 2: Audio-visual tech trivia, rapid-fire buzzer face-off, and wager question rounds.",
-      "Use of mobile phones or smartwatches during the arena run results in immediate disqualification.",
-      "Quizmaster's ruling is final and binding in all rounds."
+      "Round 1: DIGITAL VAULT : Enter the vault and crack a series of technical MCQ's through an online quiz platform. Accuracy and speed will determine who advanced to the next stage of the heist. ",
+      "Round 2: THE MASTER PLAN : Put your Electronics and Instrumentation knowledge to the test in a written technical quiz. Analyze, think strategically and answer your way closer to the treasure.",
+      "Round 3: THE FINAL CLUE: Put your technical knowledge to the test with three intriguing clues describing a mystery component or concept. Listen carefully, connect the hints and identify the correct answer. Only the sharpest minds will crack the clues and unlock the final vault!.",
     ],
     coordinator: {
       name: "A. Vijay",
@@ -116,15 +159,15 @@ export const OFFICIAL_EVENTS: SymposiumEvent[] = [
     tagline: "Connect cryptic visual clues, decode hidden tech brands, algorithms, and technical paradigms.",
     genre: "Connection • Deduction • Visual Logic",
     category: "strategy",
-    rating: "ALL AGES",
+    rating: "U/A 16+",
     duration: "75m",
     badge: "#3 IN DEDUCTION",
     matchScore: 95,
     date: "31 Oct 2026",
-    time: "11:45 AM — 01:00 PM",
-    venue: "Audio-Visual Hall",
-    teamSize: "2 Members",
-    fee: "Free Entry / Included with Delegate Pass",
+    time: "Afternoon Session",
+    venue: "Dept of EIE, 10th floor, New Building",
+    teamSize: "2-3 Members",
+    fee: "Rs.200/head",
     description: "An exhilarating visual connection battle inspired by classic lateral puzzle showdowns. Identify underlying software design patterns, famous founders, obscure tech acquisitions, programming keywords, and logos pieced together from seemingly unrelated imagery.",
     rules: [
       "Teams consist of 2 members.",
@@ -148,15 +191,15 @@ export const OFFICIAL_EVENTS: SymposiumEvent[] = [
     tagline: "Market futuristic prototypes and craft the ultimate technical sales pitch.",
     genre: "Creative Pitch • Marketing • Ad-Mad",
     category: "nontech",
-    rating: "ALL AGES",
+    rating: "U/A 16+",
     duration: "90m",
     badge: "#4 IN CREATIVITY",
     matchScore: 94,
     date: "31 Oct 2026",
-    time: "02:00 PM — 03:30 PM",
-    venue: "Open Amphitheatre / Stage 2",
+    time: "Afternoon Session",
+    venue: "Dept of EIE, 10th floor, New Building",
     teamSize: "3 to 5 Members",
-    fee: "Free Entry / Included with Delegate Pass",
+    fee: "Rs.200/head",
     description: "Techno Ads merges theatrical comedy, engineering insight, and advertising brilliance. Teams are assigned unconventional futuristic gadgets or software ideas and must construct a compelling 3-minute live commercial advertisement that captivates both judges and audience.",
     rules: [
       "Teams of 3 to 5 members.",
@@ -185,17 +228,15 @@ export const OFFICIAL_EVENTS: SymposiumEvent[] = [
     badge: "#5 IN ADVENTURE",
     matchScore: 97,
     date: "31 Oct 2026",
-    time: "02:00 PM — 03:30 PM",
-    venue: "Campus Grounds & Tech Quadrant",
+    time: "Afternoon Session",
+    venue: "Dept of EIE, 10th floor, New Building",
     teamSize: "3 to 4 Members",
-    fee: "Free Entry / Included with Delegate Pass",
-    description: "The symposium's ultimate physical-digital hybrid challenge! Crack base64 strings, Caesar ciphers, QR coordinates, and algorithmic riddles hidden in physical drop points across the university campus. The fastest squad to recover the final master decryption key claims the champion's bounty.",
+    fee: "Rs.200/head",
+    description: "Turn on the detective cap and get a few instructions from Sherlock Holmes because here we hide treasures across campus in tricky places for a clue to riddles and enjoy the treasure.",
     rules: [
       "Teams must have 3 to 4 members who stay together throughout the hunt.",
-      "Teams will receive clue 1 at the central registration lawn upon briefing.",
-      "Each stage requires solving a logic puzzle to unlock the GPS coordinate or building marker for the next clue checkpoint.",
-      "Tampering with clues or checkpoints will lead to instant team disqualification.",
-      "The first squad to bring all collected checkpoint seals and decipher the final payload wins."
+      "Round 1: Puzzle or connecting images are given to the team to crack it and next team sails forward.",
+      "Round 2: 5-6 treasures are hidden in different places across campus like in a balloon, under a a desk, in a book, etc. Riddles locates clues and treasures are collected. The team that collects all treasures grabs the 1st spot.",
     ],
     coordinator: {
       name: "Sriram R",
@@ -251,7 +292,7 @@ export const SCHEDULE_EPISODES: ScheduleEpisode[] = [
     title: "Hospitality Feast & Lunch Intermission",
     duration: "60m",
     venue: "Dining Pavilion",
-    desc: "Grand festive lunch served by the Hospitality Committee with Veg & Non-Veg pavilions. Networking lounge open to all registered delegates."
+    desc: "Grand festive vegetarian lunch served by the Hospitality Committee. Networking lounge open to all registered delegates."
   },
   {
     epNum: 6,

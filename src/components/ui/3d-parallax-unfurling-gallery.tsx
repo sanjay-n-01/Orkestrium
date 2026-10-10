@@ -9,21 +9,23 @@ import React, {
 } from "react";
 import { motion, useScroll, useTransform, useSpring, MotionValue } from "motion/react";
 
-const UNSPLASH_IMAGES = [
-  "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1540039155732-68473668f43e?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1470229722913-7c092db62220?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1514533491410-d007c0303b70?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1550614000-4b95d4ed798a?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1493225457124-a1a2a5f560e9?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1471614654469-512fb94711f5?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1520110120835-c96534a4c984?auto=format&fit=crop&w=800&q=80",
+const CINEMA_IMAGES = [
+  "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=800&q=80", // Cinema auditorium & classic red seats
+  "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80", // 35mm film reel & cinema tape
+  "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=800&q=80", // Retro neon Cinema marquee sign
+  "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=800&q=80", // Director's production clapperboard
+  "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&w=800&q=80", // Red velvet theater auditorium
+  "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=800&q=80", // Cinema projector light beam
+  "https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=800&q=80", // Cinema production camera & film set
+  "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?auto=format&fit=crop&w=800&q=80", // Film set production slate
+  "https://images.unsplash.com/photo-1518676599649-f00053ff407b?auto=format&fit=crop&w=800&q=80", // Dramatic red cinema ambiance
+  "https://images.unsplash.com/photo-1524712245354-2c4e5e7121c0?auto=format&fit=crop&w=800&q=80", // Cinema camera & prime anamorphic lens
+  "https://images.unsplash.com/photo-1585647347483-22b66260dfff?auto=format&fit=crop&w=800&q=80", // Classic popcorn & film reels
+  "https://images.unsplash.com/photo-1513106580091-1d82408b8cd6?auto=format&fit=crop&w=800&q=80", // Cinema theater seats & screen glow
+  "https://images.unsplash.com/photo-1533488765986-dfa2a9939acd?auto=format&fit=crop&w=800&q=80", // Vintage 35mm film negatives
+  "https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=800&q=80", // Movie projector beam in dark theater
+  "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=800&q=80", // Cinema retro premiere
+  "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?auto=format&fit=crop&w=800&q=80", // Dramatic spotlights & haze
 ];
 
 interface ImageCardProps {
@@ -33,19 +35,21 @@ interface ImageCardProps {
 
 const ImageCard = ({ src, onLoad }: ImageCardProps) => {
   return (
-    <div className="w-full h-[200px] sm:h-[300px] md:h-[400px] flex-shrink-0 bg-[#111] transition-transform duration-300 hover:scale-[1.02] cursor-pointer relative will-change-transform backface-hidden preserve-3d">
+    <div className="w-full h-[220px] sm:h-[320px] md:h-[420px] flex-shrink-0 bg-[#111] rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.7)] transition-all duration-300 hover:scale-[1.03] hover:border-[#E50914]/50 cursor-pointer relative will-change-transform backface-hidden preserve-3d group">
       <img
         src={src}
-        alt="Gallery Asset"
+        alt="Cinema Showcase"
         loading="lazy"
         onLoad={onLoad}
-        className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-300"
+        className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-300 group-hover:scale-105"
       />
+      {/* Subtle cinematic gradient vignette */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
     </div>
   );
 };
 
-export default function ParallaxUnfurlingGallery({ images = UNSPLASH_IMAGES, scrollProgress }: { images?: string[], scrollProgress?: MotionValue<number> }) {
+export default function ParallaxUnfurlingGallery({ images = CINEMA_IMAGES, scrollProgress }: { images?: string[], scrollProgress?: MotionValue<number> }) {
   const [isReady, setIsReady] = useState(false);
   const loadedCountRef = useRef(0);
 
@@ -61,7 +65,7 @@ export default function ParallaxUnfurlingGallery({ images = UNSPLASH_IMAGES, scr
 
   const colMedia = useMemo(() => {
     // If no images or empty array, fallback to default for animation testing
-    const sourceImages = images && images.length > 0 ? images : UNSPLASH_IMAGES;
+    const sourceImages = images && images.length > 0 ? images : CINEMA_IMAGES;
     
     // Distribute images into 4 columns (cols 3 & 4 will be hidden on mobile)
     const col1Base = sourceImages.filter((_, i) => i % 4 === 0);
