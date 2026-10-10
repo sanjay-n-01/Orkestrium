@@ -12,26 +12,24 @@ interface FAQItem {
 
 const faqs: FAQItem[] = [
   {
-    q: "Who is eligible to participate in ORKESTRIM 2K26?",
+    q: "Who can participate in ORKESTRIM 2k26?",
     a: "All undergraduate and postgraduate students from any branch or stream are welcome to participate. Bringing a valid physical College ID Card is mandatory for verification at the registration desk.",
   },
   {
-    q: "Are inter-college teams allowed?",
-    a: "No. Inter-college teams are strictly not permitted. All participants within a team must be enrolled in the same college or institution. Cross-department teams within the same college are completely allowed and encouraged!",
-    highlight: "Strict Regulation: All team members must belong to the same college.",
+    q: "Is there any registration fee? If so, what is it?",
+    a: "Yes, there is registration fee. Students must pay ₹200 per head for each event they participate.",
   },
   {
     q: "What is the registration fee and what does it include?",
     a: "The delegate registration fee is ₹200 per head. This includes access to participate in tournament arenas, entry credentials, official participation kits, festive lunch banquet, and refreshments throughout the day.",
   },
   {
-    q: "How many events can I participate in?",
-    a: "Every participant is required to mandatorily participate in 1 Technical event (Morning Session) and 1 Non-Technical event (Afternoon Session). Additionally, if time permits and there are no schedule clashes, you are welcome to participate in one extra Non-Technical event if you wish to!",
-    highlight: "Mandatory Rule: 1 Technical + 1 Non-Technical event (plus 1 optional Non-Technical event if time permits).",
+    q: "Is there any transport facility provided by the college?",
+    a: "No. The college won't provide any transport facility. The college is easily reachable via trains to Potheri Station. MTC bus numbers 500 and 500D are available from Tambaram / Kilambakkam and Chengalpattu ",
   },
   {
     q: "Will food and refreshments be provided?",
-    a: "Yes! A complimentary full-course vegetarian lunch banquet and refreshments throughout the day will be provided for all registered delegates.",
+    a: "Yes! A complimentary lunch will be provided for all registered delegates.",
   },
   {
     q: "What are the prizes and certificates awarded?",
@@ -42,8 +40,8 @@ const faqs: FAQItem[] = [
     a: "ORKESTRIM 2K26 takes place on Saturday, 31 October 2026 at the Department of Electronics & Instrumentation Engineering (EIE), 10th Floor, New Building, SRM Valliammai Engineering College, Kattankulathur. Delegate check-in begins at 08:30 AM.",
   },
   {
-    q: "Will accommodation be provided for outstation participants?",
-    a: "No accommodation is provided as this is an intensive single-day symposium. Detailed public transit routes (suburban local trains from Central/Egmore and campus bus shuttles) are available in our Venue & Travel section to help plan your travel.",
+    q: "When in doubt whom to contact?",
+    a: "Respective student co-ordinators for the event can be contacted as provided in the website.",
   },
 ];
 
